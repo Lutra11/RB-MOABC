@@ -1,6 +1,6 @@
-# Risk-Aware Rolling Reservoir Scheduling
+# RB-MOABC: Risk Budgeting Multi-Objective Artificial Bee Colony for Cascade Reservoir Flood Control
 
-### Dynamic risk-budget allocation and multi-objective rolling optimization under precipitation-scenario uncertainty
+### Dynamic risk-budget allocation and multi-objective rolling optimization under GPM-based precipitation scenario uncertainty
 
 **Method** ·
 **Results** ·
@@ -13,9 +13,41 @@
 
 This repository provides the complete implementation for a five-reservoir cascade flood-control study covering **Wudongde, Baihetan, Xiluodu, Xiangjiaba, and the Three Gorges Reservoir**. The study combines GPM IMERG precipitation forcing, temporally and spatially correlated precipitation scenarios, dynamic risk-budget allocation, cascade simulation, rolling-horizon decision making, and a risk-aware adaptive multi-objective artificial bee colony solver.
 
-The optimization algorithm is one component of the study. The primary research object is the complete **hydrology–risk–decision chain** and the conditions under which dynamic risk budgets materially change flood-control decisions.
+![Study area and cascade configuration](images/png/Fig1-Framework.png)
 
-![Methodological framework](images/png/Framework.png)
+## Methodological Framework
+
+![Methodological framework](images/png/Fig2-Methodology.png)
+
+## Risk-Aware Adaptive MOABC
+
+![MOABC search diagram](images/png/Fig3-MOABC.png)
+
+## Routing-Aware Backward Mapping
+
+![Backward mapping of downstream risk importance to reservoir decision periods](images/png/Fig4-backward_mapping.png)
+
+## CDR² Validation
+
+![CDR2 validation scatter plots](images/png/Fig5-cdr2_validation.png)
+
+## Dispatch Schedules
+
+![Daily controlled release schedules for five cascade reservoirs](images/png/Fig6-gantt_dispatch.png)
+
+## Exceedance Probability
+
+![Downstream exceedance probability under four budget mechanisms](images/png/Fig7-exceedance_probability.png)
+
+## Convergence Curves
+
+![Convergence of six multi-objective optimizers](images/png/Fig8-convergence.png)
+
+## Real Scenario End-to-End
+
+![Observed GPM precipitation forcing and modelled cascade response for P01](images/png/Fig9-real_scenario.png)
+
+---
 
 ## At a glance
 
@@ -101,17 +133,6 @@ Statistical evidence: Friedman χ² significant, Kendall W = 0.676 (medium-large
 | Risk stress tests | Apply explicitly labelled precipitation multipliers (2.50×–35.75×) | Exceedance probability, CVaR, tail peak ratio, and peak reduction |
 | Mechanism and algorithm | Isolate the risk-budget mechanisms, then compare solvers fairly | Mechanism contrasts, common-front HV/IGD, runtime, ranks, and statistical tests |
 
-### Experiment profiles
-
-| Profile | Scenarios | Horizon | Executed steps | Evaluations | Population | Mechanism seeds | Algorithm seeds |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| `smoke` | 20 | 5 | 5 | 160 | 20 | 1 | 1 |
-| `screening_fast` | 50 | 7 | 3 | 800 | 40 | 3 | 5 |
-| `screening` | 100 | 10 | 5 | 4,000 | 60 | 5 | 10 |
-| `publication` | 200 | 15 | 10 | 20,000 | 100 | 20 | 30 |
-
-`smoke` and `screening_fast` are diagnostic profiles. Only the `publication` profile supports final manuscript claims.
-
 ### Eight publication events
 
 | Event | Type | Start date | Stress factor | Description |
@@ -138,8 +159,17 @@ All result CSVs are in [`data/`](data/):
 | [`table4-8_algorithm_ranks.csv`](data/table4-8_algorithm_ranks.csv) | Per-event algorithm ranks |
 | [`table4-10_ablation_results.csv`](data/table4-10_ablation_results.csv) | 5-variant ablation (MOABC−RG, −FF, −AL, standard, full) |
 | [`table4-11_all_completed_runs.csv`](data/table4-11_all_completed_runs.csv) | 1,412 verified run records |
-| [`reference_fronts.json`](data/reference_fronts.json) | Pooled reference Pareto fronts |
-| [`statistics.json`](data/statistics.json) | Summary statistics |
+
+### NPZ experiment data
+
+Key `.npz` simulation outputs are in [`data/npz_results/`](data/npz_results/):
+
+| Directory | Contents |
+|---|---|
+| `ablation/` | 60 files (4 variants × 3 events × 5 seeds) |
+| `algorithm_comparison_P01/` | 60 files (6 algorithms × 2 conditions × 5 seeds) |
+
+See [`data/npz_results/README.md`](data/npz_results/README.md) for array specifications and filename conventions.
 
 ## Experiment entry points
 
@@ -152,12 +182,10 @@ All experiment runners and calibration scripts are in [`MOABC/experiments/`](MOA
 | [`artifact_store.py`](MOABC/experiments/artifact_store.py) | Crash-safe artifact persistence for R2 experiments |
 | [`instrumented_solver.py`](MOABC/experiments/instrumented_solver.py) | Instrumented MOABC solver for R2 |
 
-See [`experiments/README.md`](MOABC/experiments/__init__.py) for the module API.
-
 ## Repository structure
 
 ```text
-git-content/
+RB-MOABC/
 ├── MOABC/                         # Solver, risk, hydrology, and simulation package
 │   ├── core/                      # Pareto archive, operators, metrics, rolling, and MOABC
 │   │   ├── solver.py              #   Risk-aware adaptive MOABC solver
@@ -174,45 +202,20 @@ git-content/
 │   │   ├── mopso.py               #   MOPSO
 │   │   └── spea2.py               #   SPEA2
 │   ├── data/                      # GPM, CDR², event, and forcing-window utilities
-│   │   ├── gpm_pipeline.py        #   GPM download, aggregation, and forcing-window extraction
-│   │   ├── observed_flow.py       #   Observed flow data loaders
-│   │   ├── cdr2_catalog.py        #   CDR² reference catalog
-│   │   ├── sub_basin_windows.py   #   Forcing-window definitions
-│   │   └── bbox_sensitivity.py    #   Bounding-box sensitivity analysis
 │   ├── forecast/                  # Ensemble forecast calibration
-│   │   └── calibration.py         #   EMOS bias correction and ECC copula coupling
 │   ├── risk/                      # Dynamic risk-budget allocation
-│   │   └── budget.py              #   Boole bound, fixed/dynamic budget allocation, CVaR
 │   ├── simulation/                # Cascade reservoir and routing model
-│   │   └── reservoir_sim.py       #   Mass balance, Muskingum routing, and cascade simulation
 │   ├── experiments/               # Publication pipelines and experiment modules
-│   │   ├── legacy_v11.py          #   Legacy v11 protocol (R1)
-│   │   ├── risk_r2.py             #   Risk-aware R2 protocol
-│   │   ├── artifact_store.py      #   Crash-safe artifact persistence
-│   │   └── instrumented_solver.py #   Instrumented solver for R2
-│   ├── cli.py                     # Command-line entry point
-│   └── tests/                     # Automated test suite (47 tests)
-│       ├── test_comparison.py
-│       ├── test_integration.py
-│       ├── test_publication_risk_r2.py
-│       ├── test_run_publication_risk_r2.py
-│       └── ...
-├── experiments/                   # Experiment entry points and calibration scripts
-│   ├── run_publication_risk_r2.py #   Main R2 runner (mechanisms + algorithms + ablation)
-│   ├── build_gpm_hydrology_inputs.py
-│   ├── build_publication_event_catalogue.py
-│   ├── calibrate_step1_extract_train_precip.py
-│   ├── calibrate_step2_match_cdr2.py
-│   ├── calibrate_step3_fit_parameters.py
-│   └── README.md
+│   └── tests/                     # Automated test suite
 ├── datasets/
 │   ├── metadata/                  # Event protocol, forcing windows, reservoir parameters
 │   └── DATASET.md                 # Dataset description and download links
-├── data/                          # Result workbooks (CSV and JSON)
+├── data/                          # Result workbooks (CSV) and NPZ experiment data
+│   ├── npz_results/               # Key simulation outputs (ablation + algorithm comparison)
+│   └── table4-*.csv               # Aggregated result tables
 ├── images/
-│   ├── png/                       # Raster figures for GitHub and manuscript
+│   ├── png/                       # Raster figures (600 DPI)
 │   └── pdf/                       # Publication-ready vector figures
-├── docs/                          # Experiment protocol
 ├── requirements.txt
 ├── .gitignore
 ├── LICENSE
@@ -224,8 +227,8 @@ git-content/
 The code is CPU-oriented and depends on NumPy, pandas, Matplotlib, SciPy, and python-docx.
 
 ```shell
-git clone https://github.com/Lutra11/risk-aware-reservoir-scheduling.git
-cd risk-aware-reservoir-scheduling
+git clone https://github.com/Lutra11/RB-MOABC.git
+cd RB-MOABC
 python -m venv .venv
 ```
 
