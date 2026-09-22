@@ -21,7 +21,47 @@ This repository provides the complete implementation for a five-reservoir cascad
 
 ## Risk-Aware Adaptive MOABC
 
-![MOABC search diagram](images/png/Fig3-MOABC.png)
+<table>
+<tr>
+<td align="center"><b>Population Init</b></td>
+<td align="center">→</td>
+<td align="center"><b>Constraint Projection</b></td>
+<td align="center">→</td>
+<td align="center"><b>Scenario Evaluation</b></td>
+<td align="center">→</td>
+<td align="center"><b>Feasibility Ranking</b></td>
+</tr>
+<tr>
+<td align="center">Random + Warm Start</td>
+<td></td>
+<td align="center">Release & Ramp Bounds</td>
+<td></td>
+<td align="center">Multi-Scenario CVaR</td>
+<td></td>
+<td align="center">Pareto + Scalar Compare</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td align="center"><b>Routing-Aware Guidance</b></td>
+<td align="center">→</td>
+<td align="center"><b>Adaptive Operator Selection</b></td>
+<td align="center">→</td>
+<td align="center"><b>Elite Archive</b></td>
+<td align="center">→</td>
+<td align="center"><b>Rolling Warm Start</b></td>
+</tr>
+<tr>
+<td align="center">Muskingum Impulse → Risk Sensitivity</td>
+<td></td>
+<td align="center">Gaussian / Local / Recombine / Risk-Focused</td>
+<td></td>
+<td align="center">Crowding Preservation</td>
+<td></td>
+<td align="center">First-Step Execute → Next Window</td>
+</tr>
+</table>
 
 ## Routing-Aware Backward Mapping
 
