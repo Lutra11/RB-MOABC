@@ -1,0 +1,73 @@
+{
+  "description": "Sub-basin rectangular windows for GPM IMERG areal precipitation extraction",
+  "method": "Windows defined by reservoir locations and CDR2 gauge control sections",
+  "note": "These are rectangular approximations, not true catchment boundaries. See paper Section 2.2 for justification.",
+  "gpm_resolution_deg": 0.1,
+  "sub_basins": [
+    {
+      "name": "Wudongde",
+      "description": "Jinsha River upper reach → Wudongde Dam",
+      "lat_min": 25.5,
+      "lat_max": 27.0,
+      "lon_min": 100.5,
+      "lon_max": 102.8,
+      "dam_lat": 26.3,
+      "dam_lon": 102.6,
+      "cdr2_gauge": 60101300,
+      "cdr2_gauge_lat": 26.87,
+      "cdr2_gauge_lon": 102.8
+    },
+    {
+      "name": "Baihetan",
+      "description": "Wudongde–Baihetan inter-dam reach",
+      "lat_min": 26.5,
+      "lat_max": 28.0,
+      "lon_min": 102.0,
+      "lon_max": 103.2,
+      "dam_lat": 27.0,
+      "dam_lon": 102.9,
+      "cdr2_gauge": 60102100,
+      "cdr2_gauge_lat": 26.58,
+      "cdr2_gauge_lon": 102.5
+    },
+    {
+      "name": "Xiluodu",
+      "description": "Baihetan–Xiluodu inter-dam reach",
+      "lat_min": 27.5,
+      "lat_max": 29.0,
+      "lon_min": 102.5,
+      "lon_max": 104.0,
+      "dam_lat": 28.3,
+      "dam_lon": 103.7,
+      "cdr2_gauge": 60104100,
+      "cdr2_gauge_lat": 28.82,
+      "cdr2_gauge_lon": 104.2
+    },
+    {
+      "name": "Xiangjiaba",
+      "description": "Xiluodu–Xiangjiaba inter-dam reach",
+      "lat_min": 28.0,
+      "lat_max": 29.5,
+      "lon_min": 103.5,
+      "lon_max": 105.0,
+      "dam_lat": 28.7,
+      "dam_lon": 104.4,
+      "cdr2_gauge": 60104800,
+      "cdr2_gauge_lat": 29.02,
+      "cdr2_gauge_lon": 104.4
+    },
+    {
+      "name": "TGD",
+      "description": "Xiangjiaba–Three Gorges Dam reach (major tributaries included)",
+      "lat_min": 29.0,
+      "lat_max": 31.5,
+      "lon_min": 104.0,
+      "lon_max": 112.0,
+      "dam_lat": 30.8,
+      "dam_lon": 111.0,
+      "cdr2_gauge": 60107170,
+      "cdr2_gauge_lat": 30.85,
+      "cdr2_gauge_lon": 111.12
+    }
+  ]
+}

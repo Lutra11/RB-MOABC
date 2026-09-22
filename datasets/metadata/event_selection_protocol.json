@@ -1,0 +1,21 @@
+{
+  "training_period": ["2007-05-01", "2015-10-31"],
+  "validation_period": ["2016-05-01", "2019-10-31"],
+  "test_period": ["2020-05-01", "2024-10-31"],
+  "flood_months": [5, 6, 7, 8, 9, 10],
+  "missing_data_policy": "reject incomplete event windows; do not interpolate or silently fill",
+  "event_detection": {
+    "threshold": "daily areal precipitation quantile 0.90 within each window",
+    "minimum_total_precipitation_mm": 20.0,
+    "independent_gap_days": 3,
+    "cluster_rule": "events separated by fewer than 3 dry days are grouped"
+  },
+  "selection": {
+    "independent_count": 4,
+    "cluster_count": 4,
+    "ranking": "descending total event precipitation",
+    "final_gate": ["complete_gpm", "clear_event_signature", "cdr2_reference_overlap", "test_period"]
+  },
+  "reference_flow": "CDR2 gauge-constrained satellite-extended reconstruction; not raw gauge observation",
+  "status": "pre-analysis protocol; final event catalogue is frozen only after test-period completeness check"
+}
