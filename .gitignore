@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+env/
+
+# Raw data (download separately, see datasets/DATASET.md)
+data/gpm_imerg_daily/
+data/gpm_imerg/
+data/CDR2/
+data/CAMELS_CN/
+*.nc
+*.nc4
+*.h5
+*.hdf5
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+.run.lock
+
+# Thesis documents (not part of code repository)
+thesis/
+scripts/
+
+# Codex review artifacts
+.codex-review/
+.codex-finalizer/
