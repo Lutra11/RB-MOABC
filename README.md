@@ -249,20 +249,51 @@ RB-MOABC/
 │   │   ├── mopso.py               #   MOPSO
 │   │   └── spea2.py               #   SPEA2
 │   ├── data/                      # GPM, CDR², event, and forcing-window utilities
+│   │   ├── gpm_pipeline.py        #   GPM download, aggregation, and forcing-window extraction
+│   │   ├── observed_flow.py       #   Observed flow data loaders
+│   │   ├── cdr2_catalog.py        #   CDR² reference catalog
+│   │   ├── sub_basin_windows.py   #   Forcing-window definitions
+│   │   └── bbox_sensitivity.py    #   Bounding-box sensitivity analysis
 │   ├── forecast/                  # Ensemble forecast calibration
+│   │   └── calibration.py         #   EMOS bias correction and ECC copula coupling
 │   ├── risk/                      # Dynamic risk-budget allocation
+│   │   └── budget.py              #   Boole bound, fixed/dynamic budget allocation, CVaR
 │   ├── simulation/                # Cascade reservoir and routing model
+│   │   └── reservoir_sim.py       #   Mass balance, Muskingum routing, and cascade simulation
 │   ├── experiments/               # Publication pipelines and experiment modules
-│   └── tests/                     # Automated test suite
+│   │   ├── risk_r2.py             #   Risk-aware R2 protocol
+│   │   ├── legacy_v11.py          #   Legacy v11 protocol (R1)
+│   │   ├── artifact_store.py      #   Crash-safe artifact persistence
+│   │   └── instrumented_solver.py #   Instrumented solver for R2
+│   ├── cli.py                     # Command-line entry point
+│   └── tests/                     # Automated test suite (9 modules)
+│       ├── test_comparison.py
+│       ├── test_integration.py
+│       ├── test_publication_risk_r2.py
+│       ├── test_publication_v11.py
+│       ├── test_repairs.py
+│       ├── test_risk_activation_preflight.py
+│       ├── test_risk_r2_io.py
+│       ├── test_risk_r2_summary.py
+│       └── test_run_publication_risk_r2.py
+├── .github/
+│   └── workflows/
+│       └── tests.yml              # CI: automated tests on push and PR
 ├── datasets/
 │   ├── metadata/                  # Event protocol, forcing windows, reservoir parameters
+│   │   ├── event_selection_protocol.json
+│   │   ├── reservoir_parameters.md
+│   │   └── sub_basin_windows.json
 │   └── DATASET.md                 # Dataset description and download links
-├── data/                          # Result workbooks (CSV) and NPZ experiment data
+├── data/                          # Result tables and NPZ experiment data
 │   ├── npz_results/               # Key simulation outputs (ablation + algorithm comparison)
-│   └── table4-*.csv               # Aggregated result tables
+│   │   ├── ablation/              # 60 files (4 variants × 3 events × 5 seeds)
+│   │   ├── algorithm_comparison_P01/  # 60 files (6 algorithms × 2 conditions × 5 seeds)
+│   │   └── README.md             # NPZ array specs and filename conventions
+│   └── table4-*.csv               # 11 aggregated result tables
 ├── images/
-│   ├── png/                       # Raster figures (600 DPI)
-│   └── pdf/                       # Publication-ready vector figures
+│   ├── png/                       # 9 raster figures (600 DPI)
+│   └── pdf/                       # 9 publication-ready vector figures
 ├── requirements.txt
 ├── .gitignore
 ├── LICENSE
