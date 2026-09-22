@@ -1,0 +1,11 @@
+﻿MOABC,MOEA/D,MOPSO,NSGA-II,NSGA-III,SPEA2,condition,event_id
+3.0,2.0,1.0,4.0,5.0,nan,normal,P01
+1.0,2.0,nan,nan,nan,nan,normal,P02
+1.0,6.0,2.0,5.0,4.0,3.0,normal,P03
+2.0,5.0,1.0,4.0,3.0,6.0,normal,P04
+2.0,1.0,3.0,nan,4.0,nan,matched,P05
+2.0,6.0,1.0,3.0,5.0,4.0,normal,P05
+1.0,2.0,3.0,5.0,6.0,4.0,normal,P06
+1.0,2.0,nan,nan,nan,nan,matched,P07
+2.0,6.0,1.0,4.0,3.0,5.0,normal,P07
+2.0,6.0,1.0,3.0,4.0,5.0,normal,P08
