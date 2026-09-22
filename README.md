@@ -2,12 +2,12 @@
 
 ### Dynamic risk-budget allocation and multi-objective rolling optimization under GPM-based precipitation scenario uncertainty
 
-**Method** ·
-**Results** ·
-**Experiments** ·
-**Data** ·
-**Reproduction** ·
-**Structure**
+[**Method**](#methodological-framework) ·
+[**Results**](#experimental-results) ·
+[**Experiments**](#experimental-design) ·
+[**Data**](#datasets) ·
+[**Reproduction**](#reproduction) ·
+[**Structure**](#repository-structure)
 
 ---
 
@@ -181,6 +181,13 @@ All experiment runners and calibration scripts are in [`MOABC/experiments/`](MOA
 | [`legacy_v11.py`](MOABC/experiments/legacy_v11.py) | Legacy v11 protocol (R1) |
 | [`artifact_store.py`](MOABC/experiments/artifact_store.py) | Crash-safe artifact persistence for R2 experiments |
 | [`instrumented_solver.py`](MOABC/experiments/instrumented_solver.py) | Instrumented MOABC solver for R2 |
+
+## Datasets
+
+- **[`datasets/DATASET.md`](datasets/DATASET.md)** — Download links and descriptions for all source data (GPM IMERG, CDR², CAMELS-CN)
+- **[`datasets/metadata/`](datasets/metadata/)** — Event selection protocol, sub-basin forcing windows, reservoir parameters
+- **[`data/`](data/)** — Aggregated CSV result tables and NPZ experiment outputs
+- **[`data/npz_results/`](data/npz_results/)** — Key simulation result files (120 files, 79 MB)
 
 ## Repository structure
 
